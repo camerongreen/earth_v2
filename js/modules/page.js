@@ -18,7 +18,7 @@ export function getSectionPath() {
   var docLocation = [];
   for (let part of parts) {
     docLocation.push(part);
-    if (['e', 'a', 'r', 't', 't', 'about'].indexOf(part) !== -1) {
+    if (['e', 'a', 'r', 't', 'h', 'about'].indexOf(part) !== -1) {
       break;
     }
   }

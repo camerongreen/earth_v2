@@ -2,6 +2,8 @@ import {getSectionUrl} from './modules/page.js';
 
 (function ($) {
   $(document).ready(() => {
+    // Make banner click to section home.  Should have just
+    // been simple link.
     $('#banner').click(() => {
       document.location = getSectionUrl();
     });
