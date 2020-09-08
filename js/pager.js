@@ -27,6 +27,16 @@ import {Quotes} from './modules/quotes.js';
   }
 
   /**
+   * Update HTML with new quote.
+   *
+   * @param {Object} quoteObj
+   */
+  function updateHTML(quoteObj) {
+    setQuote(quoteObj.getRandomQuote());
+    setPager(quoteObj.count(), quoteObj.remaining());
+  }
+
+  /**
    * Handle XML responds and listen for events.
    *
    * @param {Object} event
@@ -35,14 +45,10 @@ import {Quotes} from './modules/quotes.js';
     if (event.target.status === 200) {
       const quotes = JSON.parse(event.target.response);
       let quoteObj = new Quotes(getSection(), quotes);
-      setQuote(quoteObj.getRandomQuote());
-      // Minus 1 from remaining as we already have the first quote.
-      setPager(quoteObj.count(), quoteObj.remaining());
+      updateHTML(quoteObj);
 
       document.querySelector(`${parentSelector} .pager-next a`).onclick = (e) => {
-        setQuote(quoteObj.getRandomQuote());
-        // Minus 1 from remaining as we already have the first quote.
-        setPager(quoteObj.count(), quoteObj.remaining());
+        updateHTML(quoteObj);
         return false;
       };
     }
