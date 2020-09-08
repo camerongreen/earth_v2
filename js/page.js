@@ -1,16 +1,9 @@
+import {getSectionUrl} from './modules/page.js';
+
 (function ($) {
   $(document).ready(() => {
     $('#banner').click(() => {
-      var path = window.location.pathname;
-      var parts = path.split('/');
-      var docLocation = [];
-      for (let part of parts) {
-        docLocation.push(part);
-        if (['e', 'a', 'r', 't', 't', 'about'].indexOf(part) !== -1) {
-          break;
-        }
-      }
-      document.location = docLocation.join('/');
+      document.location = getSectionUrl();
     });
 
     if ($('#toTop')) {
