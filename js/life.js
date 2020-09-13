@@ -446,14 +446,18 @@ org.camerongreen = org.camerongreen || {};
     }).html("Please choose")
       .appendTo(countries);
 
-    $.getJSON('../data/countries.json', function (data) {
-      var html = '';
-      $.each(data, function (key, val) {
-        $("<option>").attr({
-          value: key
-        }).html(data[key])
-          .appendTo(countries);
-      });
+    Papa.parse('../data/iso_country_list.csv', {
+      header: true,
+      download: true,
+      delimiter: ",",
+      complete: function (results) {
+        $.each(results.data, function (key, val) {
+          $("<option>").attr({
+            value: val[" \"iso2\""]
+          }).html(val.Country)
+            .appendTo(countries);
+        });
+      }
     });
 
     if (org.camerongreen.dev) {
