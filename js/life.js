@@ -405,8 +405,20 @@ org.camerongreen = org.camerongreen || {};
 
     org.camerongreen.showLifespan(lc_canvas, age);
 
-    var years_url = '/a/life/expectancy/' + age.years + '/' + gender + '/' + country;
+    // var years_url = '/a/life/expectancy/' + age.years + '/' + gender + '/' + country;
+    var years_url = '../data/au_life_table.csv';
+    // var stats_url = '/a/life/animals/' + country;
     var stats_url = '/a/life/animals/' + country;
+
+    Papa.parse(years_url, {
+      header: true,
+      download: true,
+      delimiter: ",",
+      complete: function (results) {
+        $.each(results.data, function (key, val) {
+        });
+      }
+    });
 
     $.getJSON(years_url, function (years_data) {
       var years_left = parseFloat(years_data);
