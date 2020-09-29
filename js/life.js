@@ -2,12 +2,12 @@ var org = org || {};
 org.camerongreen = org.camerongreen || {};
 
 (function ($) {
-  "use strict";
+  'use strict';
 
   // Evil globals
   org.camerongreen.dev = false;
-  org.camerongreen.image_base = "/sites/all/modules/custom/life/images";
-  org.camerongreen.html_base = "/sites/all/modules/custom/life/html";
+  org.camerongreen.image_base = '/sites/all/modules/custom/life/images';
+  org.camerongreen.html_base = '/sites/all/modules/custom/life/html';
   org.camerongreen.timing_seconds = org.camerongreen.dev ? 5 : 30;
   org.camerongreen.intro_timing_seconds = org.camerongreen.dev ? 1 : 4;
 
@@ -18,9 +18,14 @@ org.camerongreen = org.camerongreen || {};
    * @param age
    */
   org.camerongreen.showLifespan = function (lc_canvas, age) {
-    $("<div>").attr({
-      id: "age"
-    }).html("You are currently <strong>" + age.years + "</strong> years, <strong>" + age.months + "</strong> months and <strong>" + age.days + "</strong> days old")
+    $('<div>')
+      .attr({
+        id: 'age',
+      })
+      .html(
+        'You are currently <strong>' + age.years + '</strong> years, <strong>' +
+        age.months + '</strong> months and <strong>' + age.days +
+        '</strong> days old')
       .appendTo(lc_canvas);
   };
 
@@ -31,15 +36,18 @@ org.camerongreen = org.camerongreen || {};
    * @param death
    */
   org.camerongreen.showLifeExpectancy = function (lc_canvas, death) {
-    $("<div>").attr({
-      id: "expectancy"
+    $('<div>').attr({
+      id: 'expectancy',
     })
-      .html("On average you will live until <strong>" + death.getMonthName() + " " + death.getDate() + ", " + death.getFullYear() + "</strong>")
+      .html(
+        'On average you will live until <strong>' + death.getMonthName() + ' ' +
+        death.getDate() + ', ' + death.getFullYear() + '</strong>')
       .appendTo(lc_canvas);
-    $("<div>").attr({
-      id: "intro"
+    $('<div>').attr({
+      id: 'intro',
     })
-      .html("If you continue eating animals this is how many individuals will live unhappy lives and then be killed on your behalf")
+      .html(
+        'If you continue eating animals this is how many individuals will live unhappy lives and then be killed on your behalf')
       .appendTo(lc_canvas);
   };
 
@@ -50,18 +58,23 @@ org.camerongreen = org.camerongreen || {};
    */
   org.camerongreen.getAnimals = function () {
     return [
-      new org.camerongreen.Animal("Cows", "bovine meat", 195.05, "Kg", "cow"),
-      new org.camerongreen.Animal("Pigs", "pigmeat", 65.32, "Kg", "pig"),
-      new org.camerongreen.AnimalGroup("Poultry", "poultry meat", [
-        new org.camerongreen.Animal("Chickens", "chicken meat", 0.818, "Kg", "hen"),
-        new org.camerongreen.Animal("Turkeys", "turkey meat", 9.75, "Kg", "turkey"),
-        new org.camerongreen.Animal("Ducks", "duck meat", 2.52, "Kg", "duck"),
-        new org.camerongreen.Animal("Geese", "goose and guinea fowl meat", 4.93, "Kg", "goose")
+      new org.camerongreen.Animal('Cows', 'bovine meat', 195.05, 'Kg', 'cow'),
+      new org.camerongreen.Animal('Pigs', 'pigmeat', 65.32, 'Kg', 'pig'),
+      new org.camerongreen.AnimalGroup('Poultry', 'poultry meat', [
+        new org.camerongreen.Animal('Chickens', 'chicken meat', 0.818, 'Kg',
+          'hen'),
+        new org.camerongreen.Animal('Turkeys', 'turkey meat', 9.75, 'Kg',
+          'turkey'),
+        new org.camerongreen.Animal('Ducks', 'duck meat', 2.52, 'Kg', 'duck'),
+        new org.camerongreen.Animal('Geese', 'goose and guinea fowl meat', 4.93,
+          'Kg', 'goose'),
       ]),
-      new org.camerongreen.AnimalGroup("Goats and Lambs", "mutton & goat meat", [
-        new org.camerongreen.Animal("Goats", "goat meat", 16.4, "Kg", "goat"),
-        new org.camerongreen.Animal("Lambs", "sheep meat", 14.97, "Kg", "sheep")
-      ])
+      new org.camerongreen.AnimalGroup('Goats and Lambs', 'mutton & goat meat',
+        [
+          new org.camerongreen.Animal('Goats', 'goat meat', 16.4, 'Kg', 'goat'),
+          new org.camerongreen.Animal('Lambs', 'sheep meat', 14.97, 'Kg',
+            'sheep'),
+        ]),
     ];
   };
 
@@ -72,8 +85,10 @@ org.camerongreen = org.camerongreen || {};
    */
   org.camerongreen.getFish = function () {
     return [
-      new org.camerongreen.Animal("Marine Fish", "fish, seafood", 0.08, "Kg", "fish"),
-      new org.camerongreen.Animal("Freshwater Fish", "freshwater fish", 0.08, "Kg", "ffish")
+      new org.camerongreen.Animal('Marine Fish', 'fish, seafood', 0.08, 'Kg',
+        'fish'),
+      new org.camerongreen.Animal('Freshwater Fish', 'freshwater fish', 0.08,
+        'Kg', 'ffish'),
     ];
   };
 
@@ -86,7 +101,8 @@ org.camerongreen = org.camerongreen || {};
    * @param production
    * @param years_left
    */
-  org.camerongreen.calculateStats = function (animals, consumption, production, years_left) {
+  org.camerongreen.calculateStats = function (
+    animals, consumption, production, years_left) {
     var values = [];
 
     for (var j = 0, jl = animals.length; j < jl; j++) {
@@ -96,14 +112,19 @@ org.camerongreen = org.camerongreen || {};
 
       if (animal instanceof org.camerongreen.AnimalGroup) {
         var subtypes = animal.getSubtypes();
-        var subtype_consumption = org.camerongreen.getSubtypeConsumption(annual_consumption, production, subtypes);
+        var subtype_consumption = org.camerongreen.getSubtypeConsumption(
+          annual_consumption, production, subtypes);
         for (var k = 0, kl = subtypes.length; k < kl; k++) {
           if (subtype_consumption[k] !== false) {
-            values.push(org.camerongreen.getAnimalStats(subtypes[k], subtype_consumption[k].annual_consumption, years_left, consumed.unit));
+            values.push(org.camerongreen.getAnimalStats(subtypes[k],
+              subtype_consumption[k].annual_consumption, years_left,
+              consumed.unit));
           }
         }
-      } else {
-        values.push(org.camerongreen.getAnimalStats(animal, annual_consumption, years_left, consumed.unit));
+      }
+      else {
+        values.push(org.camerongreen.getAnimalStats(animal, annual_consumption,
+          years_left, consumed.unit));
       }
     }
 
@@ -123,7 +144,7 @@ org.camerongreen = org.camerongreen || {};
       }
     }
 
-    throw "This shouldn't happen! " + animal.getFaoName();
+    throw 'This shouldn\'t happen! ' + animal.getFaoName();
   };
 
   /**
@@ -134,19 +155,24 @@ org.camerongreen = org.camerongreen || {};
    * @param production
    * @param years_left
    */
-  org.camerongreen.showConsumptionTable = function (lc_canvas, consumption, production, years_left) {
+  org.camerongreen.showConsumptionTable = function (
+    lc_canvas, consumption, production, years_left) {
     org.camerongreen.showHeader(function () {
-      var values = org.camerongreen.calculateStats(org.camerongreen.getAnimals(), consumption, production, years_left);
+      var values = org.camerongreen.calculateStats(
+        org.camerongreen.getAnimals(), consumption, production, years_left);
 
-      org.camerongreen.showRows(lc_canvas, "Terrestrial", values.sort(function (a, b) {
-        return b[1] - a[1];
-      }));
+      org.camerongreen.showRows(lc_canvas, 'Terrestrial',
+        values.sort(function (a, b) {
+          return b[1] - a[1];
+        }));
 
-      var fish_values = org.camerongreen.calculateStats(org.camerongreen.getFish(), consumption, production, years_left);
+      var fish_values = org.camerongreen.calculateStats(
+        org.camerongreen.getFish(), consumption, production, years_left);
 
-      org.camerongreen.showRows(lc_canvas, "Aquatic", fish_values.sort(function (a, b) {
-        return b[1] - a[1];
-      }));
+      org.camerongreen.showRows(lc_canvas, 'Aquatic',
+        fish_values.sort(function (a, b) {
+          return b[1] - a[1];
+        }));
 
       org.camerongreen.showFooter(lc_canvas);
     });
@@ -160,7 +186,7 @@ org.camerongreen = org.camerongreen || {};
    * @return {*}
    */
   $.fn.fadeInVis = function (speed, fn) {
-    return this.hide().css({visibility: "visible"}).fadeIn(speed, fn);
+    return this.hide().css({ visibility: 'visible' }).fadeIn(speed, fn);
   };
 
   /**
@@ -169,22 +195,29 @@ org.camerongreen = org.camerongreen || {};
    * @param fn
    */
   org.camerongreen.showHeader = function (fn) {
-    $("#age").fadeInVis(org.camerongreen.intro_timing_seconds * 1000, function () {
-      $("#expectancy").fadeInVis(org.camerongreen.intro_timing_seconds * 1000, function () {
-        $("#intro").fadeInVis(org.camerongreen.intro_timing_seconds * 1000, function () {
-          fn();
-        });
+    $('#age')
+      .fadeInVis(org.camerongreen.intro_timing_seconds * 1000, function () {
+        $('#expectancy')
+          .fadeInVis(org.camerongreen.intro_timing_seconds * 1000, function () {
+            $('#intro')
+              .fadeInVis(org.camerongreen.intro_timing_seconds * 1000,
+                function () {
+                  fn();
+                });
+          });
       });
-    });
   };
 
   org.camerongreen.showFooter = function (lc_canvas) {
 
-    var govegan = $("<div>").attr({"id": "govegan"}).appendTo(lc_canvas);
+    var govegan = $('<div>').attr({ 'id': 'govegan' }).appendTo(lc_canvas);
 
-    $("<div>").html("If you are interested in living a life as if animals mattered, there are thousands of people out there willing to help you.  <a href='/contact' target='new'>Get in touch</a> with me and let me know what sort of information you'd like, and I'll do my best to help out.").appendTo(govegan);
+    $('<div>')
+      .html(
+        'If you are interested in living a life as if animals mattered, there are thousands of people out there willing to help you.  <a href=\'/contact\' target=\'new\'>Get in touch</a> with me and let me know what sort of information you\'d like, and I\'ll do my best to help out.')
+      .appendTo(govegan);
 
-    govegan.delay(($(".results .row").length + 1) * 1000).fadeInVis();
+    govegan.delay(($('.results .row').length + 1) * 1000).fadeInVis();
   };
 
   /**
@@ -196,14 +229,15 @@ org.camerongreen = org.camerongreen || {};
    * @param unit
    * @return {Array}
    */
-  org.camerongreen.getAnimalStats = function (animal, annual_consumption, years_left, unit) {
+  org.camerongreen.getAnimalStats = function (
+    animal, annual_consumption, years_left, unit) {
     var expected_consumption = annual_consumption * years_left;
     var individuals = animal.calculateIndividuals(expected_consumption);
     return [
       animal,
       individuals,
       annual_consumption.toFixed(2) + unit,
-      expected_consumption.toFixed(2) + unit
+      expected_consumption.toFixed(2) + unit,
     ];
   };
 
@@ -215,18 +249,21 @@ org.camerongreen = org.camerongreen || {};
    * @param production
    * @param subtypes
    */
-  org.camerongreen.getSubtypeConsumption = function (annual_consumption, production, subtypes) {
+  org.camerongreen.getSubtypeConsumption = function (
+    annual_consumption, production, subtypes) {
     var retVal = [];
 
-    var subtypeDivisors = org.camerongreen.subtypeDivisors(production, subtypes);
+    var subtypeDivisors = org.camerongreen.subtypeDivisors(production,
+      subtypes);
 
     for (var i = 0, l = subtypes.length; i < l; i++) {
       if (subtypeDivisors[i] !== false) {
         var newObj = {
-          "annual_consumption": annual_consumption * subtypeDivisors[i]
+          'annual_consumption': annual_consumption * subtypeDivisors[i],
         };
         retVal.push(newObj);
-      } else {
+      }
+      else {
         retVal.push(false);
       }
     }
@@ -236,11 +273,12 @@ org.camerongreen = org.camerongreen || {};
 
   /**
    * "subtypes" are animals which just have a broad grouping the the FAO
-   * consumption statistics, such as poultry.  In the production statistics however
-   * they are shown in greater detail.  So I use the approximate production percentages
-   * to divide up the consumption in actual animals, in the case of poultry this
-   * becomes chickens, ducks and geese etc.  It's approximate of course, assuming
-   * a country eats the same things it produces, but it's the best I could do.
+   * consumption statistics, such as poultry.  In the production statistics
+   * however they are shown in greater detail.  So I use the approximate
+   * production percentages to divide up the consumption in actual animals, in
+   * the case of poultry this becomes chickens, ducks and geese etc.  It's
+   * approximate of course, assuming a country eats the same things it
+   * produces, but it's the best I could do.
    *
    * @param production
    * @param subtypes
@@ -273,7 +311,8 @@ org.camerongreen = org.camerongreen || {};
       if (phash.hasOwnProperty(fao_name)) {
         var divisor = parseFloat(phash[fao_name]) / total;
         subtypeDivisors.push(divisor);
-      } else {
+      }
+      else {
         subtypeDivisors.push(false);
       }
     }
@@ -289,19 +328,20 @@ org.camerongreen = org.camerongreen || {};
    * @param rows
    */
   org.camerongreen.showRows = function (lc_canvas, subheading, rows) {
-    var outer = $("<div>")
-      .addClass("results")
+    var outer = $('<div>')
+      .addClass('results')
       .appendTo(lc_canvas);
 
-    var h2 = $("<h2>").html(subheading).appendTo(outer);
+    var h2 = $('<h2>').html(subheading).appendTo(outer);
 
     for (var i = 0; i < rows.length; i++) {
-      var row = $("<div>").addClass("row").appendTo(outer);
+      var row = $('<div>').addClass('row').appendTo(outer);
       org.camerongreen.addRow(row, rows[i]);
       (function () {
-        var indies = row.find(".individuals");
-        row.delay(i * 1500).fadeIn("slow", function () {
-          org.camerongreen.counter(indies, 0, org.camerongreen.timing_seconds * 1000);
+        var indies = row.find('.individuals');
+        row.delay(i * 1500).fadeIn('slow', function () {
+          org.camerongreen.counter(indies, 0,
+            org.camerongreen.timing_seconds * 1000);
           indies.fadeIn();
         });
       }());
@@ -320,33 +360,33 @@ org.camerongreen = org.camerongreen || {};
     var annual = values[2];
     var lifetime = values[3];
 
-    var col = $("<div>").addClass("image").appendTo(row);
+    var col = $('<div>').addClass('image').appendTo(row);
 
-    $("<img>").attr({
-      src: org.camerongreen.image_base + "/" + animal.getImage()
+    $('<img>').attr({
+      src: org.camerongreen.image_base + '/' + animal.getImage(),
     }).appendTo(col);
 
-    $("<div>").addClass("animal").html(animal.getName()).appendTo(row);
-    $("<div>").addClass("individuals").html(individuals).appendTo(row);
+    $('<div>').addClass('animal').html(animal.getName()).appendTo(row);
+    $('<div>').addClass('individuals').html(individuals).appendTo(row);
 
     // show the info column
-    var infolink = $("<div>").addClass("infolink").appendTo(row);
+    var infolink = $('<div>').addClass('infolink').appendTo(row);
 
-    var info = $("<div>").addClass("info");
+    var info = $('<div>').addClass('info');
 
     org.camerongreen.addMoreInfo(animal, info, lifetime, annual);
 
-    $("<a>").attr({
-      "href": "javascript://",
-      "title": "More information"
-    }).html("More information")
+    $('<a>').attr({
+      'href': 'javascript://',
+      'title': 'More information',
+    }).html('More information')
       .click(function () {
         info.dialog({
           modal: true,
-          width: "70%",
+          width: '70%',
           close: false,
-          title: "More information about " + animal.getName(),
-          hide: "fadeOut"
+          title: 'More information about ' + animal.getName(),
+          hide: 'fadeOut',
         });
       }).appendTo(infolink);
   };
@@ -359,32 +399,58 @@ org.camerongreen = org.camerongreen || {};
    * @param life_cons
    * @param annual_cons
    */
-  org.camerongreen.addMoreInfo = function (animal, container, life_cons, annual_cons) {
+  org.camerongreen.addMoreInfo = function (
+    animal, container, life_cons, annual_cons) {
     // do tabs
-    var tabouter = $("<div>").appendTo(container);
-    var tabs = $("<ul>").appendTo(tabouter);
-    tabs.append($("<li>").append($("<a>").attr({"href": org.camerongreen.html_base + "/" + animal.getId() + "-good.html"}).html("The good")));
-    tabs.append($("<li>").append($("<a>").attr({"href": org.camerongreen.html_base + "/" + animal.getId() + "-bad.html"}).html("The bad")));
+    var tabouter = $('<div>').appendTo(container);
+    var tabs = $('<ul>').appendTo(tabouter);
+    tabs.append($('<li>')
+      .append($('<a>')
+        .attr({
+          'href': org.camerongreen.html_base + '/' + animal.getId() +
+            '-good.html',
+        })
+        .html('The good')));
+    tabs.append($('<li>')
+      .append($('<a>')
+        .attr({
+          'href': org.camerongreen.html_base + '/' + animal.getId() +
+            '-bad.html',
+        })
+        .html('The bad')));
 
-    var statsTab = $("<li>").appendTo(tabs);
-    $("<a>").attr({"href": "#stats-tab"}).html("Statistics").appendTo(statsTab);
-    var statsTabContent = $("<div>").attr({"id": "stats-tab"}).appendTo(tabouter);
+    var statsTab = $('<li>').appendTo(tabs);
+    $('<a>')
+      .attr({ 'href': '#stats-tab' })
+      .html('Statistics')
+      .appendTo(statsTab);
+    var statsTabContent = $('<div>')
+      .attr({ 'id': 'stats-tab' })
+      .appendTo(tabouter);
 
-    statsTabContent.append($("<p>").html(
-      "According to the <a href='http://faostat.fao.org' target='_new'>United Nations</a> the average consumption per person annually in " + $("#country option:selected").text() + " of " + animal.getName().toLocaleLowerCase() + " is <strong>" + annual_cons + "</strong>."
+    statsTabContent.append($('<p>').html(
+      'According to the <a href=\'http://faostat.fao.org\' target=\'_new\'>United Nations</a> the average consumption per person annually in ' +
+      $('#country option:selected').text() + ' of ' +
+      animal.getName().toLocaleLowerCase() + ' is <strong>' + annual_cons +
+      '</strong>.',
     ));
 
-    statsTabContent.append($("<p>").html(
-      "Calculating your average life expectancy according to the Australian Bureau of Statistics on average you will consume <strong>" + life_cons + "</strong> of the " + animal.getWeightConsumed() + animal.getUnit() + " of edible body parts of " + animal.getName().toLowerCase() + " in your lifetime."
+    statsTabContent.append($('<p>').html(
+      'Calculating your average life expectancy according to the Australian Bureau of Statistics on average you will consume <strong>' +
+      life_cons + '</strong> of the ' + animal.getWeightConsumed() +
+      animal.getUnit() + ' of edible body parts of ' +
+      animal.getName().toLowerCase() + ' in your lifetime.',
     ));
 
-    statsTabContent.append($("<p>").html("Loading...").load(org.camerongreen.html_base + "/" + animal.getId() + "-stats.html"));
+    statsTabContent.append($('<p>')
+      .html('Loading...')
+      .load(org.camerongreen.html_base + '/' + animal.getId() + '-stats.html'));
 
     tabouter.tabs({
       select: function (event, ui) {
-        var tabID = "#ui-tabs-" + (ui.index + 1);
-        $(tabID).html("<b>Fetching information....</b>");
-      }
+        var tabID = '#ui-tabs-' + (ui.index + 1);
+        $(tabID).html('<b>Fetching information....</b>');
+      },
     });
   };
 
@@ -393,178 +459,270 @@ org.camerongreen = org.camerongreen || {};
    * of someone going vegan :)
    */
   org.camerongreen.showStatistics = function () {
-    $(".page-a-life #main-wrapper").fadeInVis();
+    $('.page-a-life #main-wrapper').fadeInVis();
 
-    var lc_canvas = $("#content .section");
+    var lc_canvas = $('#content .section');
 
-    var dob = org.camerongreen.parseDate($("#dob").val());
-    var country = $("#country").val();
-    var gender = $("input:radio[@name=gender]").val();
+    var dob = org.camerongreen.parseDate($('#dob').val());
+    var country = $('#country option:selected').text();
+    var gender = $('input:radio[@name=gender]').val();
 
     var age = dob.dateUnitsBetween();
 
     org.camerongreen.showLifespan(lc_canvas, age);
 
-    // var years_url = '/a/life/expectancy/' + age.years + '/' + gender + '/' + country;
+    // var years_url = '/a/life/expectancy/' + age.years + '/' + gender + '/' +
+    // country;
     var years_url = '../data/au_life_table.csv';
     // var stats_url = '/a/life/animals/' + country;
-    var stats_url = '/a/life/animals/' + country;
+    var production_stats_url = '../data/un_animal_production_2010.csv';
+    var consumption_stats_url = '../data/un_animal_consumption_2007.csv';
 
     Papa.parse(years_url, {
       header: true,
+      skipEmptyLines: true,
       download: true,
-      delimiter: ",",
       complete: function (results) {
-        $.each(results.data, function (key, val) {
+        var years_left = org.camerongreen.getYearsLeft(results.data, age.years,
+          gender);
+        var death = new org.camerongreen.Date();
+        death.addDecimalYears(years_left);
+        org.camerongreen.showLifeExpectancy(lc_canvas, death);
+
+        Papa.parse(consumption_stats_url, {
+          header: true,
+          download: true,
+          skipEmptyLines: true,
+          complete: function (consumption_results) {
+            Papa.parse(production_stats_url, {
+              header: true,
+              download: true,
+              skipEmptyLines: true,
+              complete: function (production_results) {
+                var consumption = org.camerongreen.getAnimalsConsumed(country,
+                  consumption_results.data);
+                var production = org.camerongreen.getAnimalsProduced(country,
+                  production_results.data);
+
+                org.camerongreen.showConsumptionTable(lc_canvas,
+                  consumption, production, years_left);
+              },
+            });
+          },
         });
+      },
+    });
+  };
+
+  org.camerongreen.getAnimalsConsumed = function (country, results) {
+    var return_val = [];
+    country = country.toLowerCase();
+    $.each(results, function () {
+      if (this.Country.toLowerCase() === country) {
+        return_val.push(this);
       }
     });
 
-    $.getJSON(years_url, function (years_data) {
-      var years_left = parseFloat(years_data);
-      var death = new org.camerongreen.Date();
-      death.addDecimalYears(years_left);
+    if (return_val.length > 0) {
+      return return_val;
+    }
 
-      org.camerongreen.showLifeExpectancy(lc_canvas, death);
+    throw 'Consumption for country not found';
+  };
 
-      $.getJSON(stats_url, function (data) {
-        org.camerongreen.showConsumptionTable(lc_canvas, data["consumption"], data["production"], years_left);
-      });
+  org.camerongreen.getAnimalsProduced = function (country, results) {
+    var return_val = [];
+    country = country.toLowerCase();
+    $.each(results, function () {
+      if (this.area.toLowerCase() === country) {
+        return_val.push(this);
+      }
     });
+
+    if (return_val.length > 0) {
+      return return_val;
+    }
+
+    throw 'Production for country not found';
+  };
+
+  /**
+   *
+   */
+  org.camerongreen.getYearsLeft = function (results, age, gender) {
+    var return_val;
+    $.each(results, function (key, val) {
+      if (val.Age == age) {
+        return_val = parseFloat(val[gender.toUpperCase()]);
+      }
+    });
+
+    if (return_val) {
+      return return_val;
+    }
+
+    throw 'Age not found in life tables';
   };
 
   /**
    * Show the popup form users see when they open the page
    */
   org.camerongreen.showPopup = function () {
-    var details_form = $("<form>").attr({
-      id: "userform"
+    var details_form = $('<form>').attr({
+      id: 'userform',
     });
 
     var country_container = $('<div>')
       .appendTo(details_form);
 
     $('<label>').attr({
-      "for": "country"
-    }).html("What country do you live in?")
+      'for': 'country',
+    }).html('What country do you live in?')
       .appendTo(country_container);
 
-    var countries = $("<select>").attr({
-      id: "country"
+    var countries = $('<select>').attr({
+      id: 'country',
     }).appendTo(country_container);
 
-    $("<option>").attr({
-      value: "none"
-    }).html("Please choose")
+    $('<option>').attr({
+      value: 'none',
+    }).html('Please choose')
       .appendTo(countries);
 
-    Papa.parse('../data/iso_country_list.csv', {
+    var production_stats_url = '../data/un_animal_production_2010.csv';
+    var country_url = '../data/iso_country_list.csv';
+
+    Papa.parse(country_url, {
       header: true,
       download: true,
-      delimiter: ",",
-      complete: function (results) {
-        $.each(results.data, function (key, val) {
-          $("<option>").attr({
-            value: val[" \"iso2\""]
-          }).html(val.Country)
-            .appendTo(countries);
+      skipEmptyLines: true,
+      complete: function (country_results) {
+        Papa.parse(production_stats_url, {
+          header: true,
+          download: true,
+          skipEmptyLines: true,
+          complete: function (production_results) {
+            var country_names = [];
+            $.each(production_results.data, function () {
+              if (country_names.indexOf(this.area) === -1) {
+                country_names.push(this.area);
+              }
+            });
+            $.each(country_results.data, function () {
+              if (country_names.indexOf(this.Country) !== -1) {
+                $('<option>').attr({
+                  value: this.iso2,
+                }).html(this.Country)
+                  .appendTo(countries);
+              }
+            });
+          },
         });
-      }
+      },
     });
 
     if (org.camerongreen.dev) {
-       $(countries).val("AU");
+      $(countries).val('AU');
     }
 
     var dob_container = $('<div>')
       .appendTo(details_form);
 
     $('<label>').attr({
-      "for": "dob"
-    }).html("When where you born?")
+      'for': 'dob',
+    }).html('When where you born?')
       .appendTo(dob_container);
 
     var dob = $('<input>').attr({
-      type: "text",
-      id: "dob",
-      name: "dob"
+      type: 'text',
+      id: 'dob',
+      name: 'dob',
     }).appendTo(dob_container);
 
     $(dob).datepicker({
       changeMonth: true,
       changeYear: true,
-      dateFormat: "yy-mm-dd",
-      defaultDate: "-21y",
-      minDate: "-100y",
-      maxDate: "-5y",
-      yearRange: "-100:-5"
+      dateFormat: 'yy-mm-dd',
+      defaultDate: '-21y',
+      minDate: '-100y',
+      maxDate: '-5y',
+      yearRange: '-100:-5',
     });
 
     if (org.camerongreen.dev) {
-      $(dob).val("1969-07-21");
+      $(dob).val('1969-07-21');
     }
 
     var gender_container = $('<div>')
       .appendTo(details_form);
 
     $('<label>').attr({
-      "for": "gender"
-    }).html("Gender?")
+      'for': 'gender',
+    }).html('Gender?')
       .appendTo(gender_container);
 
-    $("<input>").attr({
-      id: "gender_female",
-      name: "gender",
-      value: "f",
-      type: "radio",
-      checked: "checked"
+    $('<input>').attr({
+      id: 'gender_female',
+      name: 'gender',
+      value: 'f',
+      type: 'radio',
+      checked: 'checked',
     }).appendTo(gender_container);
 
-    $("<span>").html("Female").appendTo(gender_container);
+    $('<span>').html('Female').appendTo(gender_container);
 
-    $("<input>").attr({
-      id: "gender_male",
-      name: "gender",
-      value: "m",
-      type: "radio"
+    $('<input>').attr({
+      id: 'gender_male',
+      name: 'gender',
+      value: 'm',
+      type: 'radio',
     }).appendTo(gender_container);
 
-    $("<span>").html("Male").appendTo(gender_container);
+    $('<span>').html('Male').appendTo(gender_container);
 
-    $(details_form).append($("<div>").attr({
-      "class": "disclaimer"
-    }).html("* Data used for calculation purposes only.  It is never stored by this website and will be forgotten when you leave this page."));
+    $(details_form).append($('<div>')
+      .attr({
+        'class': 'disclaimer',
+      })
+      .html(
+        '* Data used for calculation purposes only.  It is never stored by this website and will be forgotten when you leave this page.'));
 
     details_form.dialog({
       modal: true,
-      width: "450px",
+      width: '450px',
       close: false,
-      title: "Enter details",
-      hide: "fadeOut",
+      title: 'Enter details',
+      hide: 'fadeOut',
       buttons: {
-        "Submit": function (e) {
+        'Submit': function (e) {
           e.preventDefault();
 
-          $(".ui-state-error").hide();
+          $('.ui-state-error').hide();
 
           // hmm could do more here...
           var dateRegex = /^[12][0-9]{3}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$/;
 
-          if (!$("#dob").val().match(dateRegex)) {
-            var dobError = $("<div><div>").html("Invalid Date, format yyyy-mm-dd").addClass("ui-state-error");
-            $("#dob").after($(dobError));
-          } else if ($("#country").val() === "none") {
-            var countryError = $("<div><div>").html("Please choose a country").addClass("ui-state-error");
-            $("#country").after($(countryError));
-          } else {
-            $(this).dialog("close");
+          if (!$('#dob').val().match(dateRegex)) {
+            var dobError = $('<div><div>')
+              .html('Invalid Date, format yyyy-mm-dd')
+              .addClass('ui-state-error');
+            $('#dob').after($(dobError));
+          }
+          else if ($('#country').val() === 'none') {
+            var countryError = $('<div><div>')
+              .html('Please choose a country')
+              .addClass('ui-state-error');
+            $('#country').after($(countryError));
+          }
+          else {
+            $(this).dialog('close');
             org.camerongreen.showStatistics();
           }
-        }
-      }
+        },
+      },
     });
 
-    $(".ui-dialog-titlebar-close").hide();
+    $('.ui-dialog-titlebar-close').hide();
   };
 
   $(document).ready(function () {
