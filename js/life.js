@@ -139,7 +139,7 @@ org.camerongreen = org.camerongreen || {};
    */
   org.camerongreen.getConsumption = function (consumption, animal) {
     for (var i = 0, il = consumption.length; i < il; i++) {
-      if (animal.getFaoName() === consumption[i].animal.toLowerCase()) {
+      if (animal.getFaoName() === consumption[i].Item.toLowerCase()) {
         return consumption[i];
       }
     }
@@ -289,7 +289,7 @@ org.camerongreen = org.camerongreen || {};
     // bit
     var phash = {}, fao_name, i, l;
     for (i = 0, l = production.length; i < l; i++) {
-      phash[production[i].animal.toLowerCase()] = production[i].annual_production;
+      phash[production[i].item.toLowerCase()] = production[i].annual_production;
     }
 
     var total = 0;
