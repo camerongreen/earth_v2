@@ -5,7 +5,7 @@ org.camerongreen = org.camerongreen || {};
   'use strict';
 
   // Evil globals
-  org.camerongreen.dev = false;
+  org.camerongreen.dev = true;
   org.camerongreen.image_base = '../sites/all/modules/custom/life/images';
   org.camerongreen.html_base = '../sites/all/modules/custom/life/html';
   org.camerongreen.timing_seconds = org.camerongreen.dev ? 5 : 30;
@@ -108,7 +108,7 @@ org.camerongreen = org.camerongreen || {};
     for (var j = 0, jl = animals.length; j < jl; j++) {
       var animal = animals[j];
       var consumed = org.camerongreen.getConsumption(consumption, animal);
-      var annual_consumption = parseFloat(consumed.annual_consumption);
+      var annual_consumption = parseFloat(consumed.Value);
 
       if (animal instanceof org.camerongreen.AnimalGroup) {
         var subtypes = animal.getSubtypes();
@@ -118,13 +118,13 @@ org.camerongreen = org.camerongreen || {};
           if (subtype_consumption[k] !== false) {
             values.push(org.camerongreen.getAnimalStats(subtypes[k],
               subtype_consumption[k].annual_consumption, years_left,
-              consumed.unit));
+              consumed.Unit));
           }
         }
       }
       else {
         values.push(org.camerongreen.getAnimalStats(animal, annual_consumption,
-          years_left, consumed.unit));
+          years_left, consumed.Unit));
       }
     }
 
@@ -289,7 +289,7 @@ org.camerongreen = org.camerongreen || {};
     // bit
     var phash = {}, fao_name, i, l;
     for (i = 0, l = production.length; i < l; i++) {
-      phash[production[i].item.toLowerCase()] = production[i].annual_production;
+      phash[production[i].item.toLowerCase()] = production[i]['2010'];
     }
 
     var total = 0;
@@ -586,11 +586,11 @@ org.camerongreen = org.camerongreen || {};
   };
 
   org.camerongreen.showCountries = function (
-    production_results, country_results, countries) {
+    country_stats_results, country_results, countries) {
     var country_names = [];
-    $.each(production_results.data, function () {
-      if (country_names.indexOf(this.area) === -1) {
-        country_names.push(org.camerongreen.countryConversions(this.area));
+    $.each(country_stats_results.data, function () {
+      if (country_names.indexOf(this.Country) === -1) {
+        country_names.push(org.camerongreen.countryConversions(this.Country));
       }
     });
     $.each(country_results.data, function () {
@@ -628,7 +628,7 @@ org.camerongreen = org.camerongreen || {};
     }).html('Please choose')
       .appendTo(countries);
 
-    var production_stats_url = '../data/un_animal_production_2010.csv';
+    var country_stats_url = '../data/un_animal_consumption_2007.csv';
     var country_url = '../data/iso_country_list.csv';
 
     Papa.parse(country_url, {
@@ -636,21 +636,21 @@ org.camerongreen = org.camerongreen || {};
       download: true,
       skipEmptyLines: true,
       complete: function (country_results) {
-        Papa.parse(production_stats_url, {
+        Papa.parse(country_stats_url, {
           header: true,
           download: true,
           skipEmptyLines: true,
-          complete: function (production_results) {
-            org.camerongreen.showCountries(production_results, country_results,
+          complete: function (country_stats_results) {
+            org.camerongreen.showCountries(country_stats_results,
+              country_results,
               countries);
+            if (org.camerongreen.dev) {
+              $(countries).val('AU');
+            }
           },
         });
       },
     });
-
-    if (org.camerongreen.dev) {
-      $(countries).val('AU');
-    }
 
     var dob_container = $('<div>')
       .appendTo(details_form);
