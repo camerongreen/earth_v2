@@ -564,6 +564,45 @@ org.camerongreen = org.camerongreen || {};
     throw 'Age not found in life tables';
   };
 
+  org.camerongreen.countryConversions = function (country_name) {
+    var country_conversions = {
+      'Bolivia (Plurinational State of)': 'Bolivia, Plurinational State of',
+      'Democratic People\'s Republic of Korea': 'Korea, Democratic People\'s Republic of',
+      'Democratic Republic of the Congo': 'Congo, the Democratic Republic of the',
+      'Iran (Islamic Republic of)': 'Iran, Islamic Republic of',
+      'Occupied Palestinian Territory': 'Palestinian Territory, Occupied',
+      'Republic of Korea': 'Korea, Republic of',
+      'Republic of Moldova': 'Moldova, Republic of',
+      'The former Yugoslav Republic of Macedonia': 'Macedonia, the former Yugoslav Republic of',
+      'United Republic of Tanzania': 'Tanzania, United Republic of',
+      'United States of America': 'United States',
+      'Venezuela (Bolivarian Republic of)': 'Venezuela, Bolivarian Republic of',
+    };
+
+    if (country_name in country_conversions) {
+      return country_conversions[country_name];
+    }
+    return country_name;
+  };
+
+  org.camerongreen.showCountries = function (
+    production_results, country_results, countries) {
+    var country_names = [];
+    $.each(production_results.data, function () {
+      if (country_names.indexOf(this.area) === -1) {
+        country_names.push(org.camerongreen.countryConversions(this.area));
+      }
+    });
+    $.each(country_results.data, function () {
+      if (country_names.indexOf(this.Country) !== -1) {
+        $('<option>').attr({
+          value: this.iso2,
+        }).html(this.Country)
+          .appendTo(countries);
+      }
+    });
+  };
+
   /**
    * Show the popup form users see when they open the page
    */
@@ -602,20 +641,8 @@ org.camerongreen = org.camerongreen || {};
           download: true,
           skipEmptyLines: true,
           complete: function (production_results) {
-            var country_names = [];
-            $.each(production_results.data, function () {
-              if (country_names.indexOf(this.area) === -1) {
-                country_names.push(this.area);
-              }
-            });
-            $.each(country_results.data, function () {
-              if (country_names.indexOf(this.Country) !== -1) {
-                $('<option>').attr({
-                  value: this.iso2,
-                }).html(this.Country)
-                  .appendTo(countries);
-              }
-            });
+            org.camerongreen.showCountries(production_results, country_results,
+              countries);
           },
         });
       },
