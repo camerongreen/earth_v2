@@ -5,7 +5,7 @@ org.camerongreen = org.camerongreen || {};
   'use strict';
 
   // Evil globals
-  org.camerongreen.dev = true;
+  org.camerongreen.dev = false;
   org.camerongreen.image_base = '../sites/all/modules/custom/life/images';
   org.camerongreen.html_base = '../sites/all/modules/custom/life/html';
   org.camerongreen.timing_seconds = org.camerongreen.dev ? 5 : 30;
