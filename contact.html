@@ -102,6 +102,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
     <div id="content" class="column"><div class="section">
                   <a id="main-content"></a>
                     <h1 class="title" id="page-title">Contact</h1>
+        <p>Form disabled, just here for historical purposes</p>
                                             <div class="region region-content">
     <div id="block-system-main" class="block block-system first last odd">
 
@@ -109,31 +110,21 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
   <div class="content">
     <form class="user-info-from-cookie contact-form" action="contact.html" method="post" id="contact-site-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
   <label for="edit-name">Your name <span class="form-required" title="This field is required.">*</span></label>
- <input type="text" id="edit-name" name="name" value="" size="60" maxlength="255" class="form-text required" />
+ <input type="text" id="edit-name" name="name" value="" size="60" maxlength="255" class="form-text required" readonly />
 </div>
 <div class="form-item form-type-textfield form-item-mail">
   <label for="edit-mail">Your e-mail address <span class="form-required" title="This field is required.">*</span></label>
- <input type="text" id="edit-mail" name="mail" value="" size="60" maxlength="255" class="form-text required" />
+ <input type="text" id="edit-mail" name="mail" value="" size="60" maxlength="255" class="form-text required" readonly />
 </div>
 <div class="form-item form-type-textfield form-item-subject">
   <label for="edit-subject">Subject <span class="form-required" title="This field is required.">*</span></label>
- <input type="text" id="edit-subject" name="subject" value="" size="60" maxlength="255" class="form-text required" />
+ <input type="text" id="edit-subject" name="subject" value="" size="60" maxlength="255" class="form-text required" readonly />
 </div>
 <div class="form-item form-type-textarea form-item-message">
   <label for="edit-message">Message <span class="form-required" title="This field is required.">*</span></label>
- <div class="form-textarea-wrapper resizable"><textarea id="edit-message" name="message" cols="60" rows="5" class="form-textarea required"></textarea></div>
+ <div class="form-textarea-wrapper resizable"><textarea id="edit-message" name="message" cols="60" rows="5" class="form-textarea required" readonly></textarea></div>
 </div>
-<input type="hidden" name="form_build_id" value="form-uyDN6Hot6-zmOImL6BgzRU5flUmCmy__AhIpZG_4FKw" />
-<input type="hidden" name="form_id" value="contact_site_form" />
-<fieldset class="captcha form-wrapper"><legend><span class="fieldset-legend">CAPTCHA</span></legend><div class="fieldset-wrapper"><div class="fieldset-description">This question is for testing whether you are a human visitor and to prevent automated spam submissions.</div><input type="hidden" name="captcha_sid" value="50444" />
-<input type="hidden" name="captcha_token" value="e382157865a501560f48c24559af9a57" />
-<div class="form-item form-type-textfield form-item-captcha-response">
-  <label for="edit-captcha-response">Math question <span class="form-required" title="This field is required.">*</span></label>
- <span class="field-prefix">4 + 2 = </span> <input type="text" id="edit-captcha-response" name="captcha_response" value="" size="4" maxlength="2" class="form-text required" />
-<div class="description">Solve this simple math problem and enter the result. E.g. for 1+3, enter 4.</div>
-</div>
-</div></fieldset>
-<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Send message" class="form-submit" /></div></div></form>  </div>
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" disabled id="edit-submit" name="op" value="Send message" class="form-submit" /></div></div></form>  </div>
 
 </div><!-- /.block -->
   </div><!-- /.region -->
