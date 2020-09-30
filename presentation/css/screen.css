@@ -78,6 +78,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 /* line 14, ../sass/screen.scss */
 #home h1 {
   margin-top: 50%;
+  font-size: 3.6em;
 }
 
 /* line 18, ../sass/screen.scss */
